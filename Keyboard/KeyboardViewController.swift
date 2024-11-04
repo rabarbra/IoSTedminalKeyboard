@@ -111,11 +111,13 @@ class KeyboardViewController: UIInputViewController {
         if oldDir >= 0 {
             dir = oldDir
         }
-        self.textDocumentProxy.insertText("\(controlSequences[dir][String.Index(encodedOffset: pos)])")
-        pos += 1
-        if pos == 3 {
-            oldDir = -1
-            pos = 0
+        if dir >= 0 {
+            self.textDocumentProxy.insertText("\(controlSequences[dir][String.Index(encodedOffset: pos)])")
+            pos += 1
+            if pos == 3 {
+                oldDir = -1
+                pos = 0
+            }
         }
     }
     
@@ -146,6 +148,7 @@ class KeyboardViewController: UIInputViewController {
             self.endControl()
             oldDir = -1
             direction = -1
+            self.spaceScroll = false
         default:
             break
         }
